@@ -14,11 +14,11 @@ barulho_colisao = pygame.mixer.Sound('smw_coin.wav')
 
 largura = 640
 altura = 480
-x = int(largura/2)
-y = int(altura/2)
+x_cobra = int(largura/2)
+y_cobra = int(altura/2)
 
-x_azul = randint(40,600)
-y_azul = randint(50,430)
+x_maca = randint(40,600)
+y_maca = randint(50,430)
 
 pontos = 0
 fonte = pygame.font.SysFont('arial', 40, True, True)
@@ -28,29 +28,30 @@ pygame.display.set_caption('jogo Dos Quadrados')
 relogio = pygame.time.Clock()
 
 while True:
-    relogio.tick(60)
-    tela.fill((0,0,0))
+    relogio.tick(30)
+    tela.fill((255,255,255))
     mensagem = f'Pontos: {pontos}'
-    texto_formatado = fonte.render(mensagem, True, (255,255,255))
+    texto_formatado = fonte.render(mensagem, True, (0,0,0))
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             exit()
         
         if pygame.key.get_pressed()[K_a]:
-            x = x-20
+            x_cobra = x_cobra-20
         if pygame.key.get_pressed()[K_d]:
-            x = x + 20
+            x_cobra = x_cobra + 20
         if pygame.key.get_pressed()[K_w]:
-            y = y - 20
+            y_cobra = y_cobra - 20
         if pygame.key.get_pressed()[K_s]:
-            y = y + 20
-    retVermelho = pygame.draw.rect(tela,(255,0,0),(x,y,40,50))
-    retazul = pygame.draw.rect(tela,(0,0,255),(x_azul,y_azul,40,50))
+            y_cobra = y_cobra + 20
+            
+    cobra = pygame.draw.rect(tela,(0,255,0),(x_cobra,y_cobra,20,20))
+    maca = pygame.draw.rect(tela,(255,0,0),(x_maca,y_maca,20,20))
     
-    if retVermelho.colliderect(retazul):
-        x_azul = randint(40,600)
-        y_azul = randint(50,430)
+    if cobra.colliderect(maca):
+        x_maca = randint(40,600)
+        y_maca = randint(50,430)
         pontos = pontos + 1
         barulho_colisao.play()
     

@@ -27,6 +27,12 @@ tela = pygame.display.set_mode((largura,altura))
 pygame.display.set_caption('jogo Dos Quadrados')
 relogio = pygame.time.Clock()
 
+lista_cobra = []
+
+def aumenta_cobra(lista_cobra):
+    for XeY in lista_cobra:
+        pygame.draw.rect(tela,(0,255,0),(XeY[0],XeY[1],20,20))
+
 while True:
     relogio.tick(30)
     tela.fill((255,255,255))
@@ -45,7 +51,7 @@ while True:
             y_cobra = y_cobra - 20
         if pygame.key.get_pressed()[K_s]:
             y_cobra = y_cobra + 20
-            
+
     cobra = pygame.draw.rect(tela,(0,255,0),(x_cobra,y_cobra,20,20))
     maca = pygame.draw.rect(tela,(255,0,0),(x_maca,y_maca,20,20))
     
@@ -54,6 +60,15 @@ while True:
         y_maca = randint(50,430)
         pontos = pontos + 1
         barulho_colisao.play()
+
+    lista_cabeca = []
+    lista_cabeca.append(x_cobra)
+    lista_cabeca.append(y_cobra)
     
-    tela.blit(texto_formatado, (455,40))
+    lista_cobra.append(lista_cabeca)
+
+    aumenta_cobra(lista_cobra)
+
+    
+    tela.blit(texto_formatado, (450,40))
     pygame.display.update()
